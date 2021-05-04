@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -84,19 +85,25 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
 
-    public Boolean loginCheck(String email,String password)
+    public String loginCheck(String email,String password)
     {
-        Boolean flag=false;
+        SharedPreferences sharedpreferences = null;
+        
+        String flag=null;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
                 "select * from "+USER_TABLE_NAME +" where email = ? and password = ? ", new String[]{email, password});
         cursor.moveToFirst();
         if(cursor.getCount() == 1){
-            flag=true;
+
+            String id = cursor.getString(cursor.getColumnIndex(Database.USER_COLUMN_ID));
+            String name = cursor.getString(cursor.getColumnIndex(Database.USER_COLUMN_NAME));
+
+            flag=id;
         }
         else
         {
-            flag=false;
+            flag=null;
         }
 
         return flag;

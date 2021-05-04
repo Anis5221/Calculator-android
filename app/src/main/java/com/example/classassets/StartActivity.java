@@ -24,7 +24,7 @@ public class StartActivity extends AppCompatActivity {
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i=new Intent(getBaseContext(),MainActivity.class);
+                    Intent i=new Intent(getBaseContext(),Login_Activity.class);
                     startActivity(i);
                     startIntent = 1;
                     finish();
@@ -39,7 +39,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(startIntent == 0) {
-                    Intent i = new Intent(getBaseContext(), MainActivity.class);
+                    Intent i = new Intent(getBaseContext(), Login_Activity.class);
                     startActivity(i);
                     finish();
                 }

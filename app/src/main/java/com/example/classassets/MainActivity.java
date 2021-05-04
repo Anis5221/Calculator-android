@@ -1,7 +1,9 @@
 package com.example.classassets;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -41,22 +43,43 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
+
+
+
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.login:
-                Intent account =new Intent(this,Login_Activity.class);
-                startActivity(account);
-                break;
-            case R.id.signUp:
-                Intent i =new Intent(this,SignUp.class);
-                startActivity(i);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+        String id = prefs.getString("id", "");
+       
+        Log.d(id, "this id");
+        if(Integer.parseInt(id) > 0){
+            switch (item.getItemId()){
+                case R.id.logOut:
+                    Intent account =new Intent(this,Login_Activity.class);
+                    startActivity(account);
+                    break;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+            return true;
+        }else {
+            switch (item.getItemId()){
+                case R.id.login:
+                    Intent account =new Intent(this,Login_Activity.class);
+                    startActivity(account);
+                    break;
+                case R.id.signUp:
+                    Intent i =new Intent(this,SignUp.class);
+                    startActivity(i);
+                    break;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+            return true;
         }
-        return true;
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

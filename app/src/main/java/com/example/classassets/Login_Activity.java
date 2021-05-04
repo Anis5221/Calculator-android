@@ -2,7 +2,9 @@ package com.example.classassets;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -35,10 +37,14 @@ public class Login_Activity extends AppCompatActivity {
                 Database db = new Database(getApplicationContext());
                 String em = email.getText().toString();
                 String pass = password.getText().toString();
-
-                if(db.loginCheck(em,pass)){
+                String id = db.loginCheck(em,pass);
+                if(id != null){
 
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        i.putExtra("id",id);
+                    SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE).edit();
+                    editor.putString(id, id);
+                    editor.commit();
                         startActivity(i);
 
                 }else{
