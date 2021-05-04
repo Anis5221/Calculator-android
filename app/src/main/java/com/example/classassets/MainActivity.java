@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
         String id = prefs.getString("id", "");
-       
+
         Log.d(id, "this id");
         if(Integer.parseInt(id) > 0){
             switch (item.getItemId()){
