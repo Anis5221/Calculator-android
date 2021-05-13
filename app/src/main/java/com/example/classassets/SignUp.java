@@ -28,10 +28,12 @@ public class SignUp extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Database db = new Database(getApplicationContext());
-            db.insertUser(name.getText().toString(), email.getText().toString(), phone.getText().toString(), password.getText().toString());
-            Toast.makeText(getApplicationContext(),"Data Saved",Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(), Login_Activity.class);
-            startActivity(i);
+            if(db.insertUser(name.getText().toString(), email.getText().toString(), phone.getText().toString(), password.getText().toString())){
+                Toast.makeText(getApplicationContext(),"Data Saved",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), Login_Activity.class);
+                startActivity(i);
+            }
+
         }
     });
 

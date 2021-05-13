@@ -1,5 +1,6 @@
 package com.example.classassets;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -47,24 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
-        String id = prefs.getString("id", "");
 
-        Log.d(id, "this id");
-        if(Integer.parseInt(id) > 0){
-            switch (item.getItemId()){
-                case R.id.logOut:
-                    Intent account =new Intent(this,Login_Activity.class);
-                    startActivity(account);
-                    break;
-                default:
-                    return super.onOptionsItemSelected(item);
-            }
-            return true;
-        }else {
+//        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+//        String id = prefs.getString("id", "");
+//        Menu m = (Menu) findViewById(R.id.login);
+////        Log.d(id, "this id");
+//        if(Integer.parseInt(id) > 0){
+//
+//
+//
+
             switch (item.getItemId()){
                 case R.id.login:
                     Intent account =new Intent(this,Login_Activity.class);
@@ -74,17 +71,31 @@ public class MainActivity extends AppCompatActivity {
                     Intent i =new Intent(this,SignUp.class);
                     startActivity(i);
                     break;
+                case R.id.logOut:
+                    Intent in =new Intent(this,Login_Activity.class);
+                    startActivity(in);
                 default:
                     return super.onOptionsItemSelected(item);
             }
             return true;
-        }
+
 
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        SharedPreferences  prefs = getSharedPreferences("STATUS", Context.MODE_PRIVATE);
+        boolean p = prefs.getBoolean("isLogged", false);
         getMenuInflater().inflate(R.menu.main, menu);
+
+        if (p) {
+            MenuItem item1 = menu.findItem(R.id.login);
+            item1.setVisible(false);
+            MenuItem item2 = menu.findItem(R.id.signUp);
+            item2.setVisible(false);
+        }else{
+            MenuItem item2 = menu.findItem(R.id.logOut);
+            item2.setVisible(false);
+        }
         return true;
     }
 

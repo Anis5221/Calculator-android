@@ -15,6 +15,7 @@
         android:layout_marginTop="200dp"
         android:orientation="horizontal"
         >
+
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -70,5 +71,14 @@
         android:layout_marginRight="100dp"
         android:layout_marginLeft="100dp"
         android:id="@+id/signUpPage"/>
+
+    <Button
+        android:id="@+id/redirectToMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Direct to Main Activity"
+
+        />
 
 </LinearLayout>

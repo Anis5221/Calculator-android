@@ -43,7 +43,8 @@ public class Login_Activity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         i.putExtra("id",id);
                     SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE).edit();
-                    editor.putString(id, id);
+                    editor.putString("id", id);
+                    editor.putBoolean("isLogged", true);
                     editor.commit();
                         startActivity(i);
 
@@ -60,6 +61,15 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), SignUp.class);
+                startActivity(i);
+            }
+        });
+
+        Button redirectButton = (Button) findViewById(R.id.redirectToMain);
+        redirectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
             }
         });
