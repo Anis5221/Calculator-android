@@ -18,6 +18,10 @@ import android.widget.Toolbar;
 
 public class Login_Activity extends AppCompatActivity {
 
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String idKey = "id";
+    public static final String isLogged = "isLogged";
+    SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,7 @@ public class Login_Activity extends AppCompatActivity {
         EditText password = findViewById(R.id.passwordLog);
         Button loginbtn = findViewById(R.id.loginButton);
         TextView signUpPage = findViewById(R.id.signUpPage);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SpannableString content = new SpannableString("If don't have an account");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         signUpPage.setText(content);
@@ -41,12 +46,12 @@ public class Login_Activity extends AppCompatActivity {
                 if(id != null){
 
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        i.putExtra("id",id);
-                    SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE).edit();
-                    editor.putString("id", id);
-                    editor.putBoolean("isLogged", true);
+//                        i.putExtra(id,id);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(idKey, id);
+                    editor.putBoolean(isLogged, true);
                     editor.commit();
-                        startActivity(i);
+                    startActivity(i);
 
                 }else{
                     Toast.makeText(getApplicationContext(),"User Not Match!",Toast.LENGTH_SHORT).show();

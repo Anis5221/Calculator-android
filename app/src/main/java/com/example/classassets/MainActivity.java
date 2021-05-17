@@ -24,13 +24,15 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -73,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.logOut:
                     Intent in =new Intent(this,Login_Activity.class);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.clear();
+                    editor.commit();
                     startActivity(in);
                 default:
                     return super.onOptionsItemSelected(item);
@@ -83,8 +88,9 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        SharedPreferences  prefs = getSharedPreferences("STATUS", Context.MODE_PRIVATE);
+        SharedPreferences  prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         boolean p = prefs.getBoolean("isLogged", false);
+        String id = prefs.getString("idKey", "1525");
         getMenuInflater().inflate(R.menu.main, menu);
 
         if (p) {
